@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/**
+ * @package Intelipost\Shipping
+ * @copyright Copyright (c) 2021 Intelipost
+ * @license https://opensource.org/licenses/OSL-3.0.php Open Software License 3.0
+ */
+-->
+
+<config>
+    <router id="admin">
+        <route id="intelipost" frontName="intelipost">
+            <module name="Intelipost_Shipping"/>
+        </route>
+    </router>
+</config>
+

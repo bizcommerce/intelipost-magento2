@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/**
+ * @package Intelipost\Shipping
+ * @copyright Copyright (c) 2021 Intelipost
+ * @license https://opensource.org/licenses/OSL-3.0.php Open Software License 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="intelipost_settings" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment">
+                <label>Intelipost</label>
+                <comment>In order to use our module, you need Intelipost Credentials and a valid Intelipost account (Version 2.6.2)</comment>
+                <include path="Intelipost_Shipping::system/general.xml"/>
+                <include path="Intelipost_Shipping::system/quote.xml"/>
+                <include path="Intelipost_Shipping::system/push.xml"/>
+            </group>
+        </section>
+    </system>
+</config>
+

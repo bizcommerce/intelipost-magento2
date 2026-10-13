@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+/**
+ * @package Intelipost\Shipping
+ * @copyright Copyright (c) 2021 Intelipost
+ * @license https://opensource.org/licenses/OSL-3.0.php Open Software License 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <csp>
+            <policies>
+                <storefront_checkout_index_index>
+                    <scripts>
+                        <inline>1</inline>
+                        <event_handlers>1</event_handlers>
+                    </scripts>
+                </storefront_checkout_index_index>
+            </policies>
+        </csp>
+        <intelipost_basic>
+            <settings>
+                <api_url><![CDATA[https://api.intelipost.com.br/api/v1/]]></api_url>
+                <product_page_shipping>1</product_page_shipping>
+            </settings>
+        </intelipost_basic>
+        <intelipost_push>
+            <order_status>
+                <cron_frequency>*/15 * * * *</cron_frequency>
+            </order_status>
+            <attributes>
+                <enabled>1</enabled>
+                <federal_tax_payer_id>taxvat</federal_tax_payer_id>
+            </attributes>
+        </intelipost_push>
+        <carriers>
+            <intelipost>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Intelipost\Shipping\Model\Carrier\Intelipost</model>
+                <title>Intelipost</title>
+                <type>I</type>
+                <specificerrmsg>Esse método de envio não está disponível no momento.</specificerrmsg>
+                <delivery_risk_areas>1</delivery_risk_areas>
+                <riskareamsg>Esse cep faz parte de uma área de risco. Alguns serviços de entrega não oferecem entrega em áreas de risco.
+Nesses casos, é necessário monitorar a entrega e o processo de pedido para verificar a unidade de entrega mais próxima para retirada.
+Você receberá a notificação de quando sua encomenda estará disponível para retirada.
+                </riskareamsg>
+                <street_attribute>1</street_attribute>
+                <number_attribute>2</number_attribute>
+                <complement_attribute>3</complement_attribute>
+                <district_attribute>4</district_attribute>
+                <height_attribute>height</height_attribute>
+                <freeshipping_text>Frete Grátis</freeshipping_text>
+                <scheduled_title>Entrega Agendada</scheduled_title>
+                <default_weight>1</default_weight>
+                <default_height>2</default_height>
+                <width_attribute>width</width_attribute>
+                <default_width>16</default_width>
+                <length_attribute>length</length_attribute>
+                <default_length>11</default_length>
+                <custom_title><![CDATA[{method} - Em média {days} dias para entrega]]></custom_title>
+                <same_day_title><![CDATA[{method} - entrega hoje]]></same_day_title>
+                <value_on_zero><![CDATA[0.01]]></value_on_zero>
+                <calendar_only_checkout>1</calendar_only_checkout>
+                <showmethod>1</showmethod>
+                <pickup_enabled>0</pickup_enabled>
+                <pickup_title><![CDATA[{method} - {name}, {street}, {number} - {city}/{state}]]></pickup_title>
+                <pickup_nearest_limit>5</pickup_nearest_limit>
+            </intelipost>
+        </carriers>
+    </default>
+</config>
+

@@ -1,0 +1,96 @@
+<?php
+/**
+ * @package Intelipost\Shipping
+ * @copyright Copyright (c) 2021 Intelipost
+ * @license https://opensource.org/licenses/OSL-3.0.php Open Software License 3.0
+ */
+?>
+
+<script>
+require([
+    'jquery',
+    'prototype',
+    'jquery/validate'
+], function (jQuery) {
+
+    function enableProductShippingButton() {
+        Form.Element.enable('product-shipping-button');
+        $('product-shipping-button').removeClassName('no-display');
+    }
+
+    function disableProductShippingButton() {
+        Form.Element.disable('product-shipping-button');
+        $('product-shipping-button').addClassName('no-display');
+    }
+
+    jQuery('#product-shipping-postcode').on('keyup', function () {
+        var value = $('product-shipping-postcode').value.replace(/^(\d{5})(\d{1,})/, "$1-$2");
+        $('product-shipping-postcode').value = value;
+    });
+
+    jQuery('#product-shipping-button').click(function () {
+
+        if (!jQuery("#product_addtocart_form").validation('isValid')) return;
+
+        var postcode = $('product-shipping-postcode').value.replace(/[-]/g, '');
+
+        if (!postcode.length || postcode.length != 8) {
+            $('product-shipping-result').textContent = "<?= __('Please fill the zipcode field!'); ?>";
+            $('product-shipping-postcode').focus();
+        } else {
+            jQuery.ajax({
+                url: '<?= $this->getAjaxShippingUrl() ?>',
+                data: jQuery('#product_addtocart_form, #intelipost-product-shipping-form').serialize(),
+
+                success: function (data) {
+                    $('product-shipping-result').update(data);
+                    enableProductShippingButton();
+                },
+
+                error: function () {
+                    $('product-shipping-result').textContent = "<?= __('Failure'); ?>";
+                    enableProductShippingButton();
+                }
+            });
+
+            $('product-shipping-result').textContent = "<?= __('Calculating ...'); ?>";
+            disableProductShippingButton();
+        }
+    });
+
+    jQuery('#product-shipping-postcode').keypress(function (e) {
+        if (e.which == 13) {
+            jQuery('#product-shipping-button').click();
+
+            return false;
+        }
+    });
+});
+</script>
+
+<form id="intelipost-product-shipping-form" class="intelipost-product-shipping-form">
+    <!-- <input name="form_key" value="<?= $this->getFormKey(); ?>" type="hidden" /> -->
+    <!-- <input name="product" value="<?= $this->getProduct()->getId(); ?>" type="hidden" /> -->
+    <input name="sku" value="<?= $this->getProduct()->getSku(); ?>" type="hidden"/>
+    <input name="url" value="<?= $this->getCurrentProductUrl(); ?>" type="hidden"/>
+    <input name="country" value="BR" type="hidden"/>
+    <div class="fieldset">
+        <div class="field">
+            <label class="label" for="product-shipping-postcode">
+                <span><?= __('Calculate the freight and delivery time:'); ?></span>
+            </label>
+        </div>
+        <div class="field">
+            <input name="postcode" id="product-shipping-postcode" maxlength="9" title="<?= __('Postcode'); ?>"
+                   class="input-text" type="text">
+            <button type="button" title="<?= __('Calculate'); ?>" class="action primary"
+                    id="product-shipping-button">
+                <span><?= __('Calculate'); ?></span>
+            </button>
+        </div>
+        <div class="field">
+            <div id="product-shipping-result">&nbsp;</div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,28 @@
+{
+    "name": "intelipost/magento2",
+    "description": "Intelipost Shipping",
+    "type": "magento2-module",
+    "version": "2.11.1",
+    "require": {
+        "guzzlehttp/guzzle": ">=6.3.3"
+    },
+    "authors": [
+        {
+            "name": "Intelipost DEV",
+            "email": "integracoes@intelipost.com.br",
+            "homepage": "https://www.intelipost.com.br/"
+        }
+    ],
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Intelipost\\Shipping\\": ""
+        }
+    }
+}
+

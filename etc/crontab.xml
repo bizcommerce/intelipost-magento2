@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Intelipost\Shipping
+ * @copyright Copyright (c) 2021 Intelipost
+ * @license https://opensource.org/licenses/OSL-3.0.php Open Software License 3.0
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="intelipost_create_order" instance="Intelipost\Shipping\Cron\CreateOrder" method="execute">
+            <config_path>crontab/default/jobs/intelipost_create_order/schedule/cron_expr</config_path>
+        </job>
+        <job name="intelipost_import_labels" instance="Intelipost\Shipping\Cron\ImportLabels" method="execute">
+            <schedule>55 */2 * * *</schedule>
+        </job>
+        <job name="intelipost_retry_order" instance="Intelipost\Shipping\Cron\RetryOrder" method="execute">
+            <schedule>40 4 * * *</schedule>
+        </job>
+        <job name="intelipost_ship_order" instance="Intelipost\Shipping\Cron\ShipOrder" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="intelipost_ready_for_shipment_order" instance="Intelipost\Shipping\Cron\ReadyForShipmentOrder" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+        <job name="intelipost_delete_old_quotes" instance="Intelipost\Shipping\Cron\ClearQuotes" method="execute">
+            <schedule>15 5 * * *</schedule>
+        </job>
+    </group>
+</config>
